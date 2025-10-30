@@ -3201,6 +3201,10 @@ static void pqi_process_aio_io_error(struct pqi_io_request *io_request)
 	bool device_offline;
 
 	scmd = io_request->scmd;
+#ifdef KFEATURE_ENABLE_TRUSTRLIB
+	if (!scmd)
+		return;
+#endif
 	error_info = io_request->error_info;
 	host_byte = DID_OK;
 	sense_data_length = 0;
